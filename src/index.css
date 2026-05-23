@@ -41,6 +41,10 @@ button {
   border: 0;
 }
 
+input {
+  font: inherit;
+}
+
 a {
   color: inherit;
 }
@@ -115,6 +119,17 @@ a {
   border-bottom: 1px solid var(--border);
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-email {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
 .eyebrow,
 .panel-label,
 .panel-copy {
@@ -161,6 +176,19 @@ h2 {
   background: var(--bg-input);
 }
 
+.secondary-action {
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+
+.secondary-action:hover {
+  background: var(--bg-hover);
+}
+
 .panel-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -180,6 +208,74 @@ h2 {
   margin-top: 16px;
   font-size: 14px;
   line-height: 1.5;
+}
+
+.auth-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+  background: var(--bg-primary);
+}
+
+.auth-panel {
+  width: min(100%, 420px);
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+}
+
+.auth-panel h1 {
+  margin-bottom: 22px;
+}
+
+.auth-copy,
+.auth-message,
+.auth-error {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.auth-copy {
+  color: var(--text-muted);
+}
+
+.auth-form {
+  display: grid;
+  gap: 10px;
+}
+
+.auth-form label {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.auth-form input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  background: var(--bg-input);
+}
+
+.auth-form input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.auth-message {
+  margin-top: 14px;
+  color: var(--accent);
+}
+
+.auth-error {
+  margin-top: 14px;
+  color: var(--danger);
 }
 
 @media (max-width: 820px) {
@@ -207,6 +303,12 @@ h2 {
   .topbar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .topbar-actions {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
   }
 
   .panel-grid {

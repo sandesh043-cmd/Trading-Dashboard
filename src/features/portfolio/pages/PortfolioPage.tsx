@@ -1,4 +1,9 @@
-export function PortfolioPage() {
+type PortfolioPageProps = {
+  userEmail: string
+  onSignOut: () => void
+}
+
+export function PortfolioPage({ userEmail, onSignOut }: PortfolioPageProps) {
   return (
     <main className="app-shell">
       <aside className="sidebar" aria-label="Primary">
@@ -22,9 +27,15 @@ export function PortfolioPage() {
             <p className="eyebrow">Portfolio</p>
             <h1>Overview</h1>
           </div>
-          <button type="button" className="primary-action" disabled>
-            Refresh
-          </button>
+          <div className="topbar-actions">
+            <span className="user-email">{userEmail}</span>
+            <button type="button" className="secondary-action" onClick={onSignOut}>
+              Sign out
+            </button>
+            <button type="button" className="primary-action" disabled>
+              Refresh
+            </button>
+          </div>
         </header>
 
         <section className="panel-grid" aria-label="Portfolio status">
