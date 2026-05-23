@@ -242,6 +242,42 @@ h2 {
   color: var(--text-muted);
 }
 
+.google-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 18px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  background: var(--bg-input);
+}
+
+.google-action:hover {
+  background: var(--bg-hover);
+}
+
+.google-action:disabled {
+  cursor: not-allowed;
+  color: var(--text-muted);
+}
+
+.google-mark {
+  display: inline-grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  color: #111111;
+  background: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .auth-form {
   display: grid;
   gap: 10px;

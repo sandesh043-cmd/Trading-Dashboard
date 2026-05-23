@@ -5,5 +5,6 @@ test('loads the owner sign-in shell', async ({ page }) => {
 
   await expect(page).toHaveTitle('Trading Dashboard')
   await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible()
-  await expect(page.getByLabel('Email')).toHaveValue('sandesh043@gmail.com')
+  await expect(page.getByRole('button', { name: 'Continue with Google' })).toBeVisible()
+  await expect(page.getByText('sandesh043@gmail.com')).toBeVisible()
 })

@@ -1,4 +1,4 @@
-import { type FormEvent, type ReactNode, useEffect, useMemo, useState } from 'react'
+import { type ReactNode, useEffect, useMemo, useState } from 'react'
 import { getSupabaseClient } from '../../../shared/lib/supabaseClient'
 import { OWNER_EMAIL, isOwnerEmail } from '../utils/ownerAccess'
 
@@ -91,14 +91,10 @@ function AuthContent({
   authState: Exclude<AuthState, { status: 'loading' } | { status: 'signed-in' }>
   supabase: ReturnType<typeof getSupabaseClient>
 }) {
-  const [email, setEmail] = useState(OWNER_EMAIL)
-  const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setMessage('')
+  async function handleGoogleSignIn() {
     setError('')
 
     if (!supabase) {
@@ -106,27 +102,18 @@ function AuthContent({
       return
     }
 
-    if (!isOwnerEmail(email)) {
-      setError(`Only ${OWNER_EMAIL} can access this dashboard.`)
-      return
-    }
-
     setIsSubmitting(true)
-    const { error: signInError } = await supabase.auth.signInWithOtp({
-      email,
+    const { error: signInError } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
       options: {
-        emailRedirectTo: window.location.origin,
-        shouldCreateUser: true,
+        redirectTo: window.location.origin,
       },
     })
     setIsSubmitting(false)
 
     if (signInError) {
       setError(signInError.message)
-      return
     }
-
-    setMessage('Magic link sent.')
   }
 
   if (authState.status === 'config-missing') {
@@ -150,21 +137,11 @@ function AuthContent({
   return (
     <>
       <h1>Sign in</h1>
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <label htmlFor="owner-email">Email</label>
-        <input
-          id="owner-email"
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          autoComplete="email"
-          required
-        />
-        <button type="submit" className="primary-action" disabled={isSubmitting}>
-          {isSubmitting ? 'Sending' : 'Send magic link'}
-        </button>
-      </form>
-      {message ? <p className="auth-message">{message}</p> : null}
+      <p className="auth-copy">Continue with the Google account for {OWNER_EMAIL}.</p>
+      <button type="button" className="google-action" onClick={handleGoogleSignIn} disabled={isSubmitting}>
+        <span className="google-mark" aria-hidden="true">G</span>
+        {isSubmitting ? 'Opening Google' : 'Continue with Google'}
+      </button>
       {error ? <p className="auth-error">{error}</p> : null}
     </>
   )
